@@ -1,56 +1,140 @@
-// @flow
-const specialChars = {
-  '#': 'block',
-  '*': 'inline',
-};
-
-const stack = [
-  {
-    nodeType: 'base',
-    children: [],
-  },
-];
-
-function emptyStack() {
+function emptyStack(stack, renderer) {
   while (stack.length > 1) {
-    closeNode();
+    closeNode(stack, renderer);
   }
 }
 
-function closeNode() {
-  const completedNode = stack.pop();
-  const element = createElement(completedNode);
+function closeNode(stack, renderer) {
+  const node = stack.pop();
+  const element = renderNode(node, renderer);
   stack[stack.length - 1].children.push(element);
 }
 
-function createElement(node) {
-  // return React.createElement(node.type, {}, node.children)
-  return node;
+function renderNode(node, renderer) {
+  node.props.children = node.children;
+  return renderer[node.type](node.props);
 }
 
-function parse(source) {
-  for (let i = 0; i < source.length; i++) {
-    if (specialChars[source[i]] !== undefined) {
-      if (
-        stack[stack.length - 1].nodeType !== 'base' &&
-        specialChars[source[i]] === 'block'
-      ) {
-        emptyStack();
-      }
-      stack.push({ nodeType: specialChars[source[i]], children: [] });
+const block = {
+  Heading: true,
+  Paragraph: true,
+};
+
+const inline = {
+  Link: true,
+  Strong: true,
+  Emaphasis: true,
+  Break: true,
+};
+
+const newLineCheck = {
+  '#'({ next, prev, start }) {
+    let count = 1;
+    let char = next();
+    while (count <= 6 && char === '#') {
+      count++;
+      char = next();
+    }
+    if (count > 6 || char !== ' ') {
+      prev(count);
+      start();
+      next(count);
+      return;
+    }
+    start('Heading', null, { level: count });
+  },
+};
+
+const inlineCheck = {
+  '['({ next }) {
+    next();
+  },
+  '*'({ next }) {
+    next();
+  },
+  '\n'({ next, start, newLine }) {
+    newLine();
+    let char = next();
+    if (char === '\n') {
+      next();
+      start('Paragraph');
     } else {
-      const start = i;
-      while (specialChars[source[i]] === undefined && i !== source.length) {
-        i++;
+      start('Softbreak');
+    }
+  },
+  '\r'() {
+    console.log('ESCAPECHAR-R');
+  },
+  '\\'({ next, start }) {
+    next();
+    start();
+    next();
+  },
+};
+
+export default function parse(source, renderer) {
+  const stack = [{ type: 'base', children: [], props: {} }];
+  let i = 0;
+  let textStart = 0;
+  let textEnd = 0; // last text position
+  let newLine = true;
+  let endCheck = null;
+
+  const controlFunctions = {
+    next(num) {
+      if (num !== undefined) i = i + num;
+      else i++;
+      return source[i];
+    },
+    prev(num) {
+      if (num !== undefined) i = i - num;
+      else i--;
+    },
+    start(type, end = null, props = {}) {
+      if (textEnd !== textStart)
+        stack[stack.length - 1].children.push(source.slice(textStart, textEnd));
+      textStart = i;
+      endCheck = end;
+      if (block[type]) {
+        emptyStack(stack, renderer);
+        stack.push({ type, props, children: [] });
+      } else if (inline[type]) {
+        stack.push({ type, props, children: [] });
       }
-      stack[stack.length - 1].children.push(source.slice(start, i));
-      i--;
+    },
+    end(props) {
+      if (props !== undefined) stack[stack.length - 1].props = props;
+      textStart = i;
+      endCheck = null;
+      closeNode(stack, renderer);
+    },
+    newLine() {
+      newLine = true;
+    },
+  };
+
+  if (newLineCheck[source[0]] !== undefined)
+    newLineCheck[source[0]](controlFunctions);
+  if (stack.length === 1)
+    stack.push({ type: 'Paragraph', children: [], props: {} });
+
+  while (i < source.length) {
+    if (endCheck !== null && endCheck[source[i]]) {
+      textEnd = i;
+      endCheck[source[i]](controlFunctions);
+    }
+    if (newLine === true && newLineCheck[source[i]] !== undefined) {
+      textEnd = i;
+      newLine = false;
+      newLineCheck[source[i]](controlFunctions);
+    } else if (inlineCheck[source[i]] !== undefined) {
+      textEnd = i;
+      inlineCheck[source[i]](controlFunctions);
+    } else {
+      i++;
     }
   }
-  emptyStack();
-}
 
-const testSource = '#1st block *1inline #2nd block #3rd block *3inline';
-parse(testSource);
-const util = require('util');
-console.log(util.inspect(stack, { depth: null }));
+  emptyStack(stack, renderer);
+  return stack[0].children;
+}
