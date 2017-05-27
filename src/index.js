@@ -62,8 +62,9 @@ const inlineCheck = {
       start('Softbreak');
     }
   },
-  '\r'() {
-    console.log('ESCAPECHAR-R');
+  '\r'({ next, start }) {
+    next();
+    start();
   },
   '\\'({ next, start }) {
     next();
