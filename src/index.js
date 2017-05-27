@@ -1,3 +1,4 @@
+// @flow
 const specialChars = {
   '#': 'block',
   '*': 'inline',
@@ -36,7 +37,7 @@ function parse(source) {
       ) {
         emptyStack();
       }
-      stack.push({ nodeType: specialChars[source[i]], children: [], });
+      stack.push({ nodeType: specialChars[source[i]], children: [] });
     } else {
       const start = i;
       while (specialChars[source[i]] === undefined && i !== source.length) {
@@ -52,4 +53,4 @@ function parse(source) {
 const testSource = '#1st block *1inline #2nd block #3rd block *3inline';
 parse(testSource);
 const util = require('util');
-console.log(util.inspect(stack, false, null));
+console.log(util.inspect(stack, { depth: null }));
