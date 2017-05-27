@@ -74,7 +74,7 @@ const inlineCheck = {
   },
 };
 
-export default function parse(source, renderer) {
+export default function simplemark(source, renderer) {
   const stack = [{ type: 'base', children: [], props: {} }];
   let i = 0;
   let textStart = 0;
