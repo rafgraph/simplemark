@@ -7,10 +7,8 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'plugin:flowtype/recommended',
     'plugin:import/errors',
     'prettier',
-    'prettier/flowtype',
   ],
   parserOptions: {
     ecmaVersion: 2017,
@@ -20,7 +18,7 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ['flowtype', 'import', 'prettier'],
+  plugins: ['import', 'prettier'],
   rules: {
     'prettier/prettier': ['warn', { trailingComma: 'all', singleQuote: true }],
   },
