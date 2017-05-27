@@ -24,7 +24,7 @@ const inline = {
   Link: true,
   Strong: true,
   Emaphasis: true,
-  Break: true,
+  Softbreak: true,
 };
 
 const newLineCheck = {
@@ -52,7 +52,7 @@ const inlineCheck = {
   '*'({ next }) {
     next();
   },
-  '\n'({ next, start, newLine }) {
+  '\n'({ next, start, end, newLine }) {
     newLine();
     let char = next();
     if (char === '\n') {
@@ -60,6 +60,7 @@ const inlineCheck = {
       start('Paragraph');
     } else {
       start('Softbreak');
+      end();
     }
   },
   '\r'({ next, start }) {
