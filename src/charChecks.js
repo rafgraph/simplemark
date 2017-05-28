@@ -18,7 +18,7 @@ export const newLineCheck = {
 
 // chars to always check
 export const charCheck = {
-  '['({ next, prev, start, endNode }) {
+  '['({ next, prev, start, end }) {
     next();
     const endCheck = {
       ']'() {
@@ -50,7 +50,7 @@ export const charCheck = {
           }
           if (char === ')') {
             next();
-            endNode('inline', {
+            end('inline', {
               href,
               title: title !== '' ? title : undefined,
             });
@@ -64,14 +64,14 @@ export const charCheck = {
     start('Link', endCheck);
   },
 
-  '*'({ next, prev, start, endNode }) {
+  '*'({ next, prev, start, end }) {
     if (next() === '*') {
       next();
       const endCheck = {
         '*'() {
           if (next() === '*') {
             next();
-            endNode('inline');
+            end('inline');
             return true;
           }
           prev();
@@ -83,7 +83,7 @@ export const charCheck = {
       const endCheck = {
         '*'() {
           next();
-          endNode('inline');
+          end('inline');
           return true;
         },
       };
@@ -91,7 +91,7 @@ export const charCheck = {
     }
   },
 
-  '\n'({ next, prev, start, endNode }) {
+  '\n'({ next, prev, start, end }) {
     let count = 1;
     let char = next();
     while (char === '\n') {
@@ -120,7 +120,7 @@ export const charCheck = {
     } else {
       if (count === 1) {
         start('InlineBreak');
-        endNode('inline');
+        end('inline');
       } else if (count === 2) {
         start('Paragraph');
       } else if (count > 2) {
@@ -130,14 +130,14 @@ export const charCheck = {
     }
   },
 
-  '\r'({ next, endNode }) {
+  '\r'({ next, end }) {
     next();
-    endNode();
+    end();
   },
 
-  '\\'({ next, endNode }) {
+  '\\'({ next, end }) {
     next();
-    endNode();
+    end();
     next();
   },
 };

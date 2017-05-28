@@ -39,10 +39,10 @@ export default function simplemark(source, renderer) {
       i = i - num;
     },
     start(type, endCheck = null, props = {}) {
-      controlFunctions.endNode(block[type] !== undefined ? 'block' : null);
+      controlFunctions.end(block[type] !== undefined ? 'block' : null);
       stack.push({ type, props, children: [], endCheck });
     },
-    endNode(blockType, props) {
+    end(blockType, props) {
       if (props !== undefined) stack[stack.length - 1].props = props;
       if (textEnd !== textStart)
         stack[stack.length - 1].children.push(source.slice(textStart, textEnd));
