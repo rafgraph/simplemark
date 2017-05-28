@@ -1,3 +1,4 @@
+// chars to check only at the start of new lines
 export const newLineCheck = {
   '#'({ next, prev, start }) {
     let count = 1;
@@ -15,6 +16,7 @@ export const newLineCheck = {
   },
 };
 
+// chars to always check
 export const charCheck = {
   '['({ next, prev, start, endNode }) {
     next();

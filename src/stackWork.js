@@ -1,4 +1,5 @@
 export function emptyStack(stack, renderer) {
+  // always leave base node on the stack
   while (stack.length > 1) {
     closeNode(stack, renderer);
   }
