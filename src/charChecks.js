@@ -8,8 +8,6 @@ export const newLineCheck = {
     }
     if (count > 6 || char !== ' ') {
       prev(count);
-      start();
-      next(count);
       return false;
     }
     start('Heading', null, { level: count });
