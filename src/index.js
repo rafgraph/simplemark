@@ -18,13 +18,14 @@ function renderNode(node, renderer) {
 const block = {
   Heading: true,
   Paragraph: true,
+  BlockBreak: true,
 };
 
 const inline = {
   Link: true,
   Strong: true,
   Emaphasis: true,
-  Softbreak: true,
+  InlineBreak: true,
 };
 
 const newLineCheck = {
@@ -66,8 +67,7 @@ const inlineCheck = {
     };
     const addBlockBreaks = () => {
       for (let i = 0; i < count - 2; i++) {
-        endNode('block');
-        start('Softbreak');
+        start('BlockBreak');
       }
     };
     if (
@@ -82,7 +82,7 @@ const inlineCheck = {
       );
     } else {
       if (count === 1) {
-        start('Softbreak');
+        start('InlineBreak');
         endNode('inline');
       } else if (count === 2) {
         start('Paragraph');
