@@ -19,9 +19,34 @@ export const charCheck = {
   '['({ next }) {
     next();
   },
-  '*'({ next }) {
-    next();
+
+  '*'({ next, prev, start, endNode }) {
+    if (next() === '*') {
+      next();
+      const endCheck = {
+        '*'() {
+          if (next() === '*') {
+            next();
+            endNode('inline');
+            return true;
+          }
+          prev();
+          return false;
+        },
+      };
+      start('Strong', endCheck);
+    } else {
+      const endCheck = {
+        '*'() {
+          next();
+          endNode('inline');
+          return true;
+        },
+      };
+      start('Emph', endCheck);
+    }
   },
+
   '\n'({ next, prev, start, endNode }) {
     let count = 1;
     let char = next();
@@ -60,10 +85,12 @@ export const charCheck = {
       }
     }
   },
+
   '\r'({ next, endNode }) {
     next();
     endNode();
   },
+
   '\\'({ next, endNode }) {
     next();
     endNode();

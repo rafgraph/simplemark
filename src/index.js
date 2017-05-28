@@ -10,16 +10,15 @@ const block = {
 const inline = {
   Link: true,
   Strong: true,
-  Emaphasis: true,
+  Emph: true,
   InlineBreak: true,
 };
 
 export default function simplemark(source, renderer) {
-  const stack = [{ type: 'base', children: [], props: {} }];
+  const stack = [{ type: 'base', children: [], props: {}, endCheck: null }];
   let i = 0;
   let textStart = 0;
   let textEnd = 0; // last text position
-  let checkEnd = null;
 
   const controlFunctions = {
     next(num) {
@@ -33,7 +32,7 @@ export default function simplemark(source, renderer) {
     },
     start(type, endCheck = null, props = {}) {
       controlFunctions.endNode(block[type] !== undefined ? 'block' : null);
-      stack.push({ type, props, children: [] });
+      stack.push({ type, props, children: [], endCheck });
     },
     endNode(blockType, props) {
       if (props !== undefined) stack[stack.length - 1].props = props;
@@ -41,7 +40,6 @@ export default function simplemark(source, renderer) {
         stack[stack.length - 1].children.push(source.slice(textStart, textEnd));
       textStart = i;
       textEnd = textStart;
-      checkEnd = null;
       if (blockType === 'inline') closeNode(stack, renderer);
       else if (blockType === 'block') emptyStack(stack, renderer);
     },
@@ -50,13 +48,18 @@ export default function simplemark(source, renderer) {
   if (newLineCheck[source[0]] !== undefined)
     newLineCheck[source[0]](controlFunctions);
   if (stack.length === 1)
-    stack.push({ type: 'Paragraph', children: [], props: {} });
+    stack.push({ type: 'Paragraph', children: [], props: {}, endCheck: null });
+
+  const checkEnd = () => {
+    const { endCheck } = stack[stack.length - 1];
+    if (endCheck !== null && endCheck[source[i]]) {
+      textEnd = i;
+      if (endCheck[source[i]]() === true) checkEnd();
+    }
+  };
 
   while (i < source.length) {
-    if (checkEnd !== null && checkEnd[source[i]]) {
-      textEnd = i;
-      checkEnd[source[i]](controlFunctions);
-    }
+    if (stack[stack.length - 1].endCheck !== null) checkEnd();
     if (charCheck[source[i]] !== undefined) {
       textEnd = i;
       charCheck[source[i]](controlFunctions);
