@@ -39,9 +39,10 @@ const newLineCheck = {
       prev(count);
       start();
       next(count);
-      return;
+      return false;
     }
     start('Heading', null, { level: count });
+    return true;
   },
 };
 
@@ -52,15 +53,43 @@ const inlineCheck = {
   '*'({ next }) {
     next();
   },
-  '\n'({ next, start, end, newLine }) {
-    newLine();
+  '\n'({ next, prev, start, endNode }) {
+    let count = 1;
     let char = next();
-    if (char === '\n') {
-      next();
-      start('Paragraph');
+    while (char === '\n') {
+      count++;
+      char = next();
+    }
+    const nextNode = [];
+    const nextStart = (type, endCheck, props) => {
+      nextNode.push({ type, endCheck, props });
+    };
+    const addBlockBreaks = () => {
+      for (let i = 0; i < count - 2; i++) {
+        endNode('block');
+        start('Softbreak');
+      }
+    };
+    if (
+      newLineCheck[char] !== undefined &&
+      newLineCheck[char]({ next, prev, start: nextStart }) === true
+    ) {
+      if (count > 2) {
+        addBlockBreaks();
+      }
+      nextNode.forEach(({ type, endCheck, props }) =>
+        start(type, endCheck, props),
+      );
     } else {
-      start('Softbreak');
-      end();
+      if (count === 1) {
+        start('Softbreak');
+        endNode('inline');
+      } else if (count === 2) {
+        start('Paragraph');
+      } else if (count > 2) {
+        addBlockBreaks();
+        start('Paragraph');
+      }
     }
   },
   '\r'({ next, start }) {
@@ -79,8 +108,7 @@ export default function simplemark(source, renderer) {
   let i = 0;
   let textStart = 0;
   let textEnd = 0; // last text position
-  let newLine = true;
-  let endCheck = null;
+  let checkEnd = null;
 
   const controlFunctions = {
     next(num) {
@@ -92,26 +120,19 @@ export default function simplemark(source, renderer) {
       if (num !== undefined) i = i - num;
       else i--;
     },
-    start(type, end = null, props = {}) {
+    start(type, endCheck = null, props = {}) {
+      controlFunctions.endNode(block[type] !== undefined ? 'block' : null);
+      stack.push({ type, props, children: [] });
+    },
+    endNode(blockType, props) {
+      if (props !== undefined) stack[stack.length - 1].props = props;
       if (textEnd !== textStart)
         stack[stack.length - 1].children.push(source.slice(textStart, textEnd));
       textStart = i;
-      endCheck = end;
-      if (block[type]) {
-        emptyStack(stack, renderer);
-        stack.push({ type, props, children: [] });
-      } else if (inline[type]) {
-        stack.push({ type, props, children: [] });
-      }
-    },
-    end(props) {
-      if (props !== undefined) stack[stack.length - 1].props = props;
-      textStart = i;
-      endCheck = null;
-      closeNode(stack, renderer);
-    },
-    newLine() {
-      newLine = true;
+      textEnd = textStart;
+      checkEnd = null;
+      if (blockType === 'inline') closeNode(stack, renderer);
+      else if (blockType === 'block') emptyStack(stack, renderer);
     },
   };
 
@@ -121,15 +142,11 @@ export default function simplemark(source, renderer) {
     stack.push({ type: 'Paragraph', children: [], props: {} });
 
   while (i < source.length) {
-    if (endCheck !== null && endCheck[source[i]]) {
+    if (checkEnd !== null && checkEnd[source[i]]) {
       textEnd = i;
-      endCheck[source[i]](controlFunctions);
+      checkEnd[source[i]](controlFunctions);
     }
-    if (newLine === true && newLineCheck[source[i]] !== undefined) {
-      textEnd = i;
-      newLine = false;
-      newLineCheck[source[i]](controlFunctions);
-    } else if (inlineCheck[source[i]] !== undefined) {
+    if (inlineCheck[source[i]] !== undefined) {
       textEnd = i;
       inlineCheck[source[i]](controlFunctions);
     } else {
