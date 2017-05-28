@@ -16,8 +16,50 @@ export const newLineCheck = {
 };
 
 export const charCheck = {
-  '['({ next }) {
+  '['({ next, prev, start, endNode }) {
     next();
+    const endCheck = {
+      ']'() {
+        let count = 1;
+        let char = next();
+        let href = '';
+        let title = '';
+        if (char === '(') {
+          count++;
+          char = next();
+          while (
+            char !== ' ' &&
+            char !== ')' &&
+            char !== '\n' &&
+            char !== undefined
+          ) {
+            href += char;
+            count++;
+            char = next();
+          }
+          if (char === ' ') {
+            count++;
+            char = next();
+            while (char !== ')' && char !== '\n' && char !== undefined) {
+              title += char;
+              count++;
+              char = next();
+            }
+          }
+          if (char === ')') {
+            next();
+            endNode('inline', {
+              href,
+              title: title !== '' ? title : undefined,
+            });
+            return true;
+          }
+        }
+        prev(count);
+        return false;
+      },
+    };
+    start('Link', endCheck);
   },
 
   '*'({ next, prev, start, endNode }) {
