@@ -7,12 +7,13 @@ const block = {
   BlockBreak: true,
 };
 
-const inline = {
-  Link: true,
-  Strong: true,
-  Emph: true,
-  InlineBreak: true,
-};
+// for reference, not needed
+// const inline = {
+//   Link: true,
+//   Strong: true,
+//   Emph: true,
+//   InlineBreak: true,
+// };
 
 export default function simplemark(source, renderer) {
   const stack = [{ type: 'base', children: [], props: {}, endCheck: null }];
