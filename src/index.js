@@ -22,14 +22,12 @@ export default function simplemark(source, renderer) {
   let textEnd = 0; // last text position
 
   const controlFunctions = {
-    next(num) {
-      if (num !== undefined) i = i + num;
-      else i++;
+    next(num = 1) {
+      i = i + num;
       return source[i];
     },
-    prev(num) {
-      if (num !== undefined) i = i - num;
-      else i--;
+    prev(num = 1) {
+      i = i - num;
     },
     start(type, endCheck = null, props = {}) {
       controlFunctions.endNode(block[type] !== undefined ? 'block' : null);
