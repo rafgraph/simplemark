@@ -60,13 +60,13 @@ export const charCheck = {
       }
     }
   },
-  '\r'({ next, start }) {
+  '\r'({ next, endNode }) {
     next();
-    start();
+    endNode();
   },
-  '\\'({ next, start }) {
+  '\\'({ next, endNode }) {
     next();
-    start();
+    endNode();
     next();
   },
 };
