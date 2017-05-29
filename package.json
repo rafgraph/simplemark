@@ -3,10 +3,10 @@
   "name": "simplemark-example",
   "description": "Example site for Simplemark",
   "scripts": {
-    "start-local": "yarn link react-simplemark react-simplemark-renderer-default && yarn start",
+    "start-local": "yarn link react-simplemark && yarn start",
     "start": "webpack-dev-server --devtool eval-source-map --host 0.0.0.0 --public 10.0.1.4:8080 --history-api-fallback --open",
-    "unlink": "yarn unlink react-simplemark react-simplemark-renderer-default && yarn add react-simplemark react-simplemark-renderer-default",
-    "build": "yarn run unlink && webpack -p",
+    "unlink-dev": "yarn unlink react-simplemark && yarn add react-simplemark",
+    "build": "yarn unlink-dev && webpack -p",
     "postinstall": "flow-typed install"
   },
   "repository": {
