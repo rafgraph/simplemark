@@ -11,6 +11,7 @@ export const newLineCheck = {
       prev(count);
       return false;
     }
+    next();
     start('Heading', null, { level: count });
     return true;
   },
