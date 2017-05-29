@@ -11,7 +11,10 @@
     "prepublish": "yarn run build",
     "dev": "yarn link && babel src -d lib --watch"
   },
-  "repository": "git@github.com:rafrex/simplemark.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafrex/simplemark.git"
+  },
   "author": "Rafael Pedicini <code@rafrex.com>",
   "license": "MIT",
   "files": [
