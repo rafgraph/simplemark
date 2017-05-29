@@ -1,0 +1,54 @@
+.simplemark {
+  font-family: system-ui, Helvetica, sans-serif;
+  line-height: 1.5;
+  word-wrap: break-word;
+  color: black;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.simplemark h1, .simplemark h2, .simplemark h3, .simplemark h4, .simplemark h5, .simplemark h6 {
+  font-weight: 500;
+  margin: 24px 0 16px 0;
+  line-height: 1.25;
+}
+.simplemark h1 {
+  font-size: 32px;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid rgb(216, 216, 216);
+}
+.simplemark h2 {
+  font-size: 24px;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid rgb(216, 216, 216);
+}
+.simplemark h3 {
+  font-size: 20px;
+}
+.simplemark h4 {
+  font-size: 16px;
+}
+.simplemark h5 {
+  font-size: 14px;
+}
+.simplemark h6 {
+  font-size: 14px;
+  color: rgb(100, 100, 100);
+}
+
+.simplemark p {
+  margin: 0 0 16px 0;
+}
+
+.simplemark a {
+  color: rgb(3, 102, 214);
+  text-decoration: none;
+}
+
+.simplemark em {
+  font-style: italic;
+}
+
+.simplemark strong {
+  font-weight: 600;
+}
