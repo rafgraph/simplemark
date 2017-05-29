@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import Simplemark from 'react-simplemark';
-import simplemarkRenderer from 'react-simplemark-renderer-default';
+import simplemarkRenderer from './simplemarkRenderer';
 
 export default class SimplemarkOutput extends React.PureComponent {
   props: {
