@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
-import { Simplemark } from 'react-simplemark';
+import Simplemark from 'react-simplemark';
+import simplemarkRenderer from 'react-simplemark-renderer-default';
 
 export default class SimplemarkOutput extends React.PureComponent {
   props: {
@@ -22,7 +23,7 @@ export default class SimplemarkOutput extends React.PureComponent {
     }
 
     return (
-      <Simplemark style={style}>
+      <Simplemark style={style} renderer={simplemarkRenderer}>
         {this.props.text}
       </Simplemark>
     );

@@ -76,7 +76,7 @@ export default class App extends React.Component {
           style={textBoxStyle}
           layout={this.state.layout}
         />
-      <SimplemarkOutput
+        <SimplemarkOutput
           text={this.state.text}
           style={textBoxStyle}
           layout={this.state.layout}
