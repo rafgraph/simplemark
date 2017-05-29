@@ -2949,7 +2949,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.7, prop-types@^15.5.8, prop-types@~15.5.7:
+prop-types@^15.5.10, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@~15.5.7:
   version "15.5.10"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
   dependencies:
@@ -3045,6 +3045,13 @@ react-interactive@^0.6.5:
     detect-it "^3.0.0"
     object-assign "^4.1.1"
     prop-types "^15.5.8"
+
+react-simplemark@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-simplemark/-/react-simplemark-0.1.0.tgz#9c2e374b0462c8fe831f733b10cb9e6b7c2a710c"
+  dependencies:
+    prop-types "^15.5.10"
+    simplemark "^0.1.0"
 
 react@^15.5.4:
   version "15.5.4"
@@ -3355,6 +3362,10 @@ shelljs@^0.7.5:
 signal-exit@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
+
+simplemark@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/simplemark/-/simplemark-0.1.0.tgz#ccae99e960c7c541e493153ea474fd1267e41613"
 
 slash@^1.0.0:
   version "1.0.0"
