@@ -1,13 +1,11 @@
 {
   "name": "simplemark",
   "version": "0.1.0",
-  "description": "A smaller, faster, simpler version of markdown",
+  "description": "A smaller version of Markdown",
   "main": "lib/index.js",
   "scripts": {
-    "build": "yarn run build-lib && yarn run build-dist",
-    "build-lib": "rm -rf lib && babel src -d lib",
-    "build-dist": "rm -rf dist && webpack src/index.js dist/simplemark.js && webpack -p src/index.js dist/simplemark.min.js",
-    "prepublish": "yarn run build",
+    "build": "rm -rf lib && babel src -d lib",
+    "prepublish": "yarn build",
     "dev": "yarn link && babel src -d lib --watch"
   },
   "repository": {
@@ -27,14 +25,12 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
-    "babel-loader": "^7.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.4.0",
     "eslint": "^3.19.0",
     "eslint-config-prettier": "^2.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-prettier": "^2.0.1",
-    "prettier": "^1.3.1",
-    "webpack": "^2.5.0"
+    "prettier": "^1.3.1"
   }
 }
