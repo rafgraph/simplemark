@@ -10,9 +10,19 @@
 
 Why? Because Markdown parsers are large. The [Commonmark JS](https://github.com/jgm/commonmark.js) parser is 36KB gzipped and others are of a similar size, which makes Markdown a bad format for saving, parsing, and presenting lightly formatted text in single page apps.
 
-The idea is to create a format where the parser can be easily incorporated into single page apps so the raw string can be loaded from the backend and rendered into HTML on the frontend in a way that is native to the app. The format can be used for user generated content (posts, comments, etc...), and can be created using a GUI WYSIWYG or written directly.
+The idea is to create a format where the parser can be easily incorporated into single page apps so the raw string can be loaded from the backend and rendered into HTML on the frontend in a way that is native to the app. The format can be used for user generated content (posts, comments, etc...), and can be created using a GUI text editor or written directly.
 
 Fast - the parser is single pass and runs in `O(n)` time where `n` is the number of characters in the string.
+
+#### Current State
+- Supports Heading, Paragraph, Link, Emphasis, Strong, InlineBreak, and BlockBreak elements
+- The only [pre-built renderer](https://github.com/rafrex/react-simplemark/blob/master/src/simplemarkReactRenderer.js) is for React (part of [`react-simplemark`](https://github.com/rafrex/react-simplemark))
+- Todo
+  - Add support for List, Image, BlockQuote, InlineCode, and ThematicBreak elements
+  - Create plain HTML renderer
+  - Create GUI text editor for generating Simplemark formatted text
+  - Add fundamentals of the Simplemark format to the readme (blocks, inlines and nesting)
+  - Create definitions for each type of element
 
 ## Usage
 ```shell
