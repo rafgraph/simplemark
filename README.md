@@ -37,8 +37,8 @@ import simplemark from 'simplemark';
 
 const source = '# String in Simplemark format';
 const renderer = {
-  Heading: ({ level, children, key }) => (/*return rendered element*/),
-  Paragraph: ({ children, key }) => (/*return rendered element*/),
+  Heading({ level, children, key }) {/*return rendered element*/},
+  Paragraph({ children, key }) {/*return rendered element*/},
   ...
 };
 
