@@ -1,3 +1,58 @@
 # Simplemark
 
-> A simpler, *smaller* version of Markdown
+> A *smaller* version of Markdown
+>
+> ~1KB gzipped
+>
+> Code styled with Prettier
+
+[Live Example](http://simplemark.rafrex.com)
+
+Why? Because Markdown parsers are large. The [Commonmark JS](https://github.com/jgm/commonmark.js) parser is 36KB gzipped and others are of a similar size, which makes Markdown a bad format for saving, parsing, and presenting lightly formatted text in single page apps.
+
+The idea is to create a format where the parser can be easily incorporated into single page apps so the raw string can be loaded from the backend and rendered into HTML on the frontend in a way that is native to the app. The format can be used for user generated content (posts, comments, etc...), and can be created using a GUI WYSIWYG or written directly.
+
+Fast - the parser is single pass and runs in `O(n)` time where `n` is the number of characters in the string.
+
+## Usage
+```shell
+$ yarn add simplemark
+# OR
+$ npm install --save simplemark
+```
+`simplemark` export's a single function which takes two arguments, the `source` string in Simplemark format and a `renderer` object with render functions for each type of element (Heading, Paragraph, Link, etc...).
+
+```js
+import simplemark from 'simplemark';
+
+const source = '# String in Simplemark format';
+const renderer = {
+  Heading: ({ level, children, key }) => (/*return rendered element*/),
+  Paragraph: ({ children, key }) => (/*return rendered element*/),
+  ...
+};
+
+const treeOfRenderedElements = simplemark(source, renderer);
+```
+
+#### Renderer
+- The `renderer` is an object with render functions for each type of element (Heading, Paragraph, etc... see list below).
+- Each render function receives as it's sole argument an object with keys for:
+  - `children` an array the element's children (already rendered).
+  - `key` a unique id among its parent's children (as a number).
+  - Other properties specific to the element type (e.g. `href` and `title` for links).
+  - If creating a renderer in React, each render function can be a React Component and the object it receives are its props.
+- Currently the only [pre-built renderer](https://github.com/rafrex/react-simplemark/blob/master/src/simplemarkReactRenderer.js) is for React (part of [`react-simplemark`](https://github.com/rafrex/react-simplemark)).
+```js
+// list of all element types created by Simplemark
+// all keys are required
+const renderer = {
+  Heading({ level: number from 1 to 6, children: array, key: number }) {/*return rendered element*/},
+  Paragraph({ children: array, key: number }) {/*return rendered element*/},
+  Link({ href: string, title: string, children: array, key: number }) {/*return rendered element*/},
+  Emph({ children: array, key: number }) {/*return rendered element*/},
+  Strong({ children: array, key: number }) {/*return rendered element*/},
+  InlineBreak({ key: number }) {/*return rendered element*/},
+  BlockBreak({ key: number }) {/*return rendered element*/},
+};
+```
