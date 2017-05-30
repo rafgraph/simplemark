@@ -4,6 +4,14 @@
 
 ### Live example - type and see changes!
 
+Simplemark is a simpler version of Markdown with a small ~1KB parser.
+
+The idea is to create a format where the parser can be easily incorporated into single page apps so the raw string can be loaded from the backend and rendered into HTML on the frontend in a way that is native to the app. The format can be used for user generated content (posts, comments, etc...), and can be written directly (like here), or created using a GUI text editor.
+
+Currently there is only support for Heading, Paragraph, Link, Emphasis, Strong, InlineBreak, and BlockBreak elements.
+
+Use the [React Simplemark](https://github.com/rafrex/react-simplemark) component for easy use with React.
+
 # Heading 1
 ## Heading 2
 ### Heading 3
@@ -21,8 +29,14 @@ This is a [link to the repo](https://github.com/rafrex/simplemark GitHub Repo fo
 
 ***This is strong with emphasis***
 
-This is a soft
+This is an inline
 break
+
+The extra space below is created by block breaks:
+
+
+
+
 
 
 Code and concept by [Rafael Pedicini](http://www.rafaelpedicini.com)
