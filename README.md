@@ -10,7 +10,7 @@
 
 Why? Because Markdown parsers are large. The [Commonmark JS](https://github.com/jgm/commonmark.js) parser is 36KB gzipped and others are of a similar size, which makes Markdown a bad format for saving, parsing, and presenting lightly formatted text in single page apps.
 
-The idea is to create a format where the parser can be easily incorporated into single page apps so the raw string can be loaded from the backend and rendered into HTML on the frontend in a way that is native to the app. The format can be used for user generated content (posts, comments, etc...), and can be created using a GUI text editor or written directly.
+The idea is to create a format where the parser can be easily incorporated into single page apps so the raw string can be loaded from the backend and rendered into HTML on the frontend by the app. The format can be used for user generated content (posts, comments, etc...), and can be created using a GUI text editor or written directly.
 
 Fast - the parser is single pass and runs in `O(n)` time where `n` is the number of characters in the string.
 
@@ -57,12 +57,12 @@ const treeOfRenderedElements = simplemark(source, renderer);
 // list of all element types created by Simplemark
 // all keys are required
 const renderer = {
-  Heading({ level: number from 1 to 6, children: array, key: number }) {/*return rendered element*/},
-  Paragraph({ children: array, key: number }) {/*return rendered element*/},
-  Link({ href: string, title: string, children: array, key: number }) {/*return rendered element*/},
-  Emph({ children: array, key: number }) {/*return rendered element*/},
-  Strong({ children: array, key: number }) {/*return rendered element*/},
-  InlineBreak({ key: number }) {/*return rendered element*/},
-  BlockBreak({ key: number }) {/*return rendered element*/},
+  Heading({ level/*number from 1 to 6*/, children/*array*/, key/*number*/ }) {/*return rendered element*/},
+  Paragraph({ children, key }) {/*return rendered element*/},
+  Link({ href/*string*/, title/*string*/, children, key }) {/*return rendered element*/},
+  Emph({ children, key }) {/*return rendered element*/},
+  Strong({ children, key }) {/*return rendered element*/},
+  InlineBreak({ key }) {/*return rendered element*/},
+  BlockBreak({ key }) {/*return rendered element*/},
 };
 ```
