@@ -38,7 +38,7 @@ export default class App extends React.Component {
     });
     request.addEventListener('error', () => {
       this.updateInput(
-        '### An error occurred while loading the example markdown content, ' +
+        '### An error occurred while loading the example Simplemark content, ' +
           'but you can still edit this content or refresh the page to try again.',
       );
     });
