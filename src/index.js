@@ -93,6 +93,7 @@ export default function simplemark(source, renderer) {
     }
   }
 
-  emptyStack(stack, renderer);
+  textEnd = i;
+  controlFunctions.end('block');
   return stack[0].children;
 }
