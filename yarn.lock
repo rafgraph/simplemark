@@ -3046,9 +3046,9 @@ react-interactive@^0.6.5:
     object-assign "^4.1.1"
     prop-types "^15.5.8"
 
-react-simplemark@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/react-simplemark/-/react-simplemark-0.2.1.tgz#a7e34c1ebfad9aaddbace1386e66336902ad91e1"
+react-simplemark@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/react-simplemark/-/react-simplemark-0.3.0.tgz#008d854aaa91cf1d045851064928daa1e52121b9"
   dependencies:
     prop-types "^15.5.10"
     simplemark "^0.2.1"

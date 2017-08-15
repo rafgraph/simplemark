@@ -19,7 +19,7 @@
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-interactive": "^0.6.5",
-    "react-simplemark": "^0.2.1"
+    "react-simplemark": "^0.3.0"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
