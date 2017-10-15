@@ -5,8 +5,7 @@
   "scripts": {
     "start-local": "yarn link react-simplemark && yarn start",
     "start": "webpack-dev-server --devtool eval-source-map --host 0.0.0.0 --public 10.0.1.4:8080 --history-api-fallback --open",
-    "unlink-dev": "yarn unlink react-simplemark && yarn add react-simplemark",
-    "build": "yarn unlink-dev && webpack -p",
+    "build": "rm -rf node_modules && yarn install && webpack -p",
     "postinstall": "flow-typed install"
   },
   "repository": {
