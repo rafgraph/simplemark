@@ -1,12 +1,12 @@
 # Simplemark
 
+[Demo website](https://simplemark.rafgraph.dev) (demo code on [`gh-pages` branch](https://github.com/rafgraph/simplemark/tree/gh-pages))
+
 > A *smaller* version of Markdown
 >
 > ~1KB gzipped
 >
 > Code styled with Prettier
-
-[Live Example](http://simplemark.rafrex.com)
 
 Why? Because Markdown parsers are large. The [Commonmark JS](https://github.com/jgm/commonmark.js) parser is 36KB gzipped and others are of a similar size, which makes Markdown a bad format for saving, parsing, and presenting lightly formatted text in single page apps.
 
@@ -16,7 +16,7 @@ Fast - the parser is single pass and runs in `O(n)` time where `n` is the number
 
 #### Current State
 - Supports Heading, Paragraph, Link, Emphasis, Strong, InlineBreak, and BlockBreak elements
-- The only [pre-built renderer](https://github.com/rafrex/react-simplemark/blob/master/src/simplemarkReactRenderer.js) is for React (part of [`react-simplemark`](https://github.com/rafrex/react-simplemark))
+- The only [pre-built renderer](https://github.com/rafgraph/react-simplemark/blob/main/src/simplemarkReactRenderer.js) is for React (part of [`react-simplemark`](https://github.com/rafgraph/react-simplemark))
 - Todo
   - Add support for List, Image, BlockQuote, InlineCode, and ThematicBreak elements
   - Create plain HTML renderer
@@ -52,7 +52,7 @@ const treeOfRenderedElements = simplemark(source, renderer);
   - `key` a unique id among its parent's children (as a number).
   - Other properties specific to the element type (e.g. `href` and `title` for links).
   - If creating a renderer in React, each render function can be a React Component and the object it receives are its props.
-- Currently the only [pre-built renderer](https://github.com/rafrex/react-simplemark/blob/master/src/simplemarkReactRenderer.js) is for React (part of [`react-simplemark`](https://github.com/rafrex/react-simplemark)).
+- Currently the only [pre-built renderer](https://github.com/rafgraph/react-simplemark/blob/main/src/simplemarkReactRenderer.js) is for React (part of [`react-simplemark`](https://github.com/rafgraph/react-simplemark)).
 ```js
 // list of all element types created by Simplemark
 // all keys are required
