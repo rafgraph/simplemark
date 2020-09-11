@@ -4,21 +4,21 @@
   "description": "Example site for Simplemark",
   "scripts": {
     "start-local": "yarn link react-simplemark && yarn start",
-    "start": "webpack-dev-server --devtool eval-source-map --host 0.0.0.0 --public 10.0.1.4:8080 --history-api-fallback --open",
+    "start": "webpack-dev-server --devtool eval-source-map --host 0.0.0.0 --disable-host-check --history-api-fallback --open",
     "build": "rm -rf node_modules && yarn install && webpack -p",
     "postinstall": "flow-typed install"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rafrex/simplemark.git"
+    "url": "git+https://github.com/rafgraph/simplemark.git"
   },
-  "author": "Rafael Pedicini <code@rafrex.com>",
+  "author": "Rafael Pedicini <rafael@rafgraph.dev>",
   "license": "MIT",
   "dependencies": {
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-interactive": "^0.8.1",
-    "react-simplemark": "^0.3.1"
+    "react-simplemark": "^0.3.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -38,6 +38,6 @@
     "flow-bin": "^0.47.0",
     "prettier": "^1.3.1",
     "webpack": "^3.7.1",
-    "webpack-dev-server": "^2.9.1"
+    "webpack-dev-server": "^2.11.5"
   }
 }

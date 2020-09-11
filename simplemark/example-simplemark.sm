@@ -1,8 +1,8 @@
 # Simplemark
 
-[https://github.com/rafrex/simplemark](https://github.com/rafrex/simplemark GitHub Repo for Simplemark)
+[https://github.com/rafgraph/simplemark](https://github.com/rafgraph/simplemark GitHub Repo for Simplemark)
 
-### Live example - type and see changes!
+### Live demo - type and see changes!
 
 Simplemark is a simpler version of Markdown with a small ~1KB parser.
 
@@ -10,7 +10,7 @@ The idea is to create a format where the parser can be easily incorporated into 
 
 Currently there is only support for Heading, Paragraph, Link, Emphasis, Strong, InlineBreak, and BlockBreak elements.
 
-Use the [React Simplemark](https://github.com/rafrex/react-simplemark) component for easy use with React.
+Use the [React Simplemark](https://github.com/rafgraph/react-simplemark) component for easy use with React.
 
 # Heading 1
 ## Heading 2
@@ -21,7 +21,7 @@ Use the [React Simplemark](https://github.com/rafrex/react-simplemark) component
 
 This is a paragraph of hipster text. Microdosing godard organic listicle kitsch, kale chips narwhal tousled jean shorts lumbersexual bespoke skateboard tacos swag. Church-key vinyl butcher austin leggings. Flannel hot chicken hexagon hella +1. Live-edge 8-bit glossier, butcher cardigan vinyl cold-pressed venmo. Meh letterpress XOXO lyft artisan af. Affogato woke microdosing jean shorts, polaroid XOXO enamel pin organic air plant taxidermy lo-fi fashion axe venmo. Offal pabst vape slow-carb.
 
-This is a [link to the repo](https://github.com/rafrex/simplemark GitHub Repo for Simplemark) on GitHub.
+This is a [link to the repo](https://github.com/rafgraph/simplemark GitHub Repo for Simplemark) on GitHub.
 
 *This has emphasis*
 
@@ -39,4 +39,4 @@ The extra space below is created by block breaks:
 
 
 
-Code and concept by [Rafael Pedicini](http://www.rafaelpedicini.com)
+End of the Simplemark demo.
