@@ -5,11 +5,7 @@ module.exports = {
     browser: true,
     node: true,
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:import/errors',
-    'prettier',
-  ],
+  extends: ['eslint:recommended', 'plugin:import/errors', 'prettier'],
   parserOptions: {
     ecmaVersion: 2017,
     sourceType: 'module',
@@ -18,8 +14,5 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ['import', 'prettier'],
-  rules: {
-    'prettier/prettier': ['warn', { trailingComma: 'all', singleQuote: true }],
-  },
+  plugins: ['import'],
 };

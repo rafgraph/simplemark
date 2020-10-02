@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "rm -rf lib && babel src -d lib",
-    "prepublish": "yarn build",
+    "prepublishOnly": "yarn build",
     "dev": "yarn link && babel src -d lib --watch"
   },
   "repository": {
@@ -30,7 +30,6 @@
     "eslint": "^3.19.0",
     "eslint-config-prettier": "^2.1.0",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-prettier": "^2.0.1",
-    "prettier": "^1.3.1"
+    "prettier": "^2.1.2"
   }
 }
